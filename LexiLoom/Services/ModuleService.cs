@@ -148,7 +148,8 @@ namespace LexiLoom.Services
             var foundModule = await _context.Modules
                 .Include(e => e.Words)!
                 .ThenInclude(e => e.Word)
-                .ThenInclude(e => e.Translations)
+                .ThenInclude(e => e.Translations)!
+                .ThenInclude(e => e.Language)
                 .FirstOrDefaultAsync(e => e.Id == moduleId);
             
             if(foundModule == null)

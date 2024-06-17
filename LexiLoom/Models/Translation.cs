@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LexiLoom.Models
 {
@@ -6,7 +7,8 @@ namespace LexiLoom.Models
     {
         [Required]
         public int WordId { get; set; }
-        
+
+        [JsonIgnore]
         public Word? Word { get; set; }
 
         [Required]

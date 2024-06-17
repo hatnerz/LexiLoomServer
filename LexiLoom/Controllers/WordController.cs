@@ -29,7 +29,7 @@ namespace LexiLoom.Controllers
             return Ok(result);
         }
 
-        [HttpPost("word/{wordId}")]
+        [HttpPost("translation/{wordId}")]
         public async Task<IActionResult> AddTranslationToWord([FromBody] NewTranslationModel model, [FromRoute] int wordId)
         {
             var result = await _wordService.AddTranslationToWord(wordId, model.LanguageIso, model.TranslationText);

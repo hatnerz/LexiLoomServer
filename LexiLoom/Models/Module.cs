@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LexiLoom.Models
 {
@@ -14,6 +15,7 @@ namespace LexiLoom.Models
         [Required]
         public int UserId { get; set; }
 
+        [JsonIgnore]
         public User? User { get; set; }
     }
 }

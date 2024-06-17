@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LexiLoom.Models
 {
@@ -12,6 +13,7 @@ namespace LexiLoom.Models
         [Required]
         public int ModuleId { get; set; }
 
+        [JsonIgnore]
         public Module? Module { get; set; }
 
         public DateTime AddingTime { get; set; } = DateTime.UtcNow;

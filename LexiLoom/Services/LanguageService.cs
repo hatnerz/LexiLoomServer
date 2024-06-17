@@ -14,9 +14,15 @@ namespace LexiLoom.Services
 
         public async Task<Language> AddLanguage(NewLaguageModel newLaguageModel)
         {
+            var isLanguageWithIsoExists = await _context.Languages.AnyAsync(e => e.IsoCode == newLaguageModel.IsoCode.ToLower());
+            if(isLanguageWithIsoExists)
+            {
+                throw new AlreadyExistsException("Language", "iso code");
+            }
+
             Language newLanguage = new Language()
             {
-                IsoCode = newLaguageModel.IsoCode,
+                IsoCode = newLaguageModel.IsoCode.ToLower(),
                 Name = newLaguageModel.Name
             };
 
