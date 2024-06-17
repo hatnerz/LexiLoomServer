@@ -19,6 +19,10 @@ namespace LexiLoom.Interfaces
 
         Task RemoveModule(int moduleId);
 
-        Task CreateModuleTestGame(int moduleId, int wordsCount, int answerOptionsCount);
+        Task<ModuleGameModel> CreateModuleTestGame(int moduleId, int wordsCount, int answerOptionsCount, string baseLanguageIso);
+
+        Task<int> GetModuleWordsCount(int moduleId);
+
+        Task<IEnumerable<Word>> GetWordsNotAddedInModule(int moduleId);
     }
 }

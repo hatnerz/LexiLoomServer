@@ -124,9 +124,10 @@ namespace LexiLoom.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task CreateModuleTestGame(int moduleId, int wordsCount, int answerOptionsCount)
+        public Task<ModuleGameModel> CreateModuleTestGame(int moduleId, int wordsCount, int answerOptionsCount, string baseLanguageIso)
         {
-            throw new NotImplementedException();
+            var wordsInModule = _context.WordsInModules.Include(e => e.Word).ThenInclude(e => e.Translations).Where(e => e.ModuleId == moduleId);
+            return null;
         }
 
         public async Task<IEnumerable<Module>> GetUserModules(int userId)
@@ -158,6 +159,34 @@ namespace LexiLoom.Services
             }
 
             return foundModule;
+        }
+
+        public async Task<int> GetModuleWordsCount(int moduleId)
+        {
+            var foundModule = await _context.Modules.Include(e => e.Words).FirstOrDefaultAsync(e => e.Id == moduleId);
+            
+            if (foundModule == null)
+            {
+                throw new NotFoundException("Module", moduleId);
+            }
+
+            return foundModule.Words!.Count();
+        }
+
+        public async Task<IEnumerable<Word>> GetWordsNotAddedInModule(int moduleId)
+        {
+            var foundModule = await _context.Modules.Include(e => e.Words).FirstOrDefaultAsync(e => e.Id == moduleId);
+
+            if (foundModule == null)
+            {
+                throw new NotFoundException("Module", moduleId);
+            }
+
+            var usersWords = await _context.Words.Where(e => e.UserId == foundModule.UserId).ToListAsync();
+
+            var notAddedWords = usersWords.Where(e => !(foundModule.Words!.Select(w => w.WordId).Contains(e.Id))).ToList();
+
+            return notAddedWords;
         }
     }
 }

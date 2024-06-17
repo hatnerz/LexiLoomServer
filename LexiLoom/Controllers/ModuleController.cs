@@ -64,5 +64,21 @@ namespace LexiLoom.Controllers
             return Ok(result);
         }
 
+        [HttpGet("words-count/{moduleId}")]
+        public async Task<IActionResult> GetWordsCount([FromRoute] int moduleId)
+        {
+            var result = await _moduleService.GetModuleWordsCount(moduleId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{moduleId}/unadded-words")]
+        public async Task<IActionResult> GetUserWordsNotAddedInModule([FromRoute] int moduleId)
+        {
+            var result = await _moduleService.GetWordsNotAddedInModule(moduleId);
+
+            return Ok(result);
+        }
+
     }
 }
