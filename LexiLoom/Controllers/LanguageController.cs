@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LexiLoom.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class LanguageController : ControllerBase
     {
         private readonly ILanguageService _languageService;
@@ -22,7 +24,7 @@ namespace LexiLoom.Controllers
         }
 
         [HttpGet("{languageId}")]
-        public async Task<IActionResult> GetLanguageById([FromQuery] int languageId)
+        public async Task<IActionResult> GetLanguageById([FromRoute] int languageId)
         {
             var result = await _languageService.GetLanguageById(languageId);
             return Ok(result);
@@ -36,14 +38,14 @@ namespace LexiLoom.Controllers
         }
 
         [HttpDelete("id/{languageId}")]
-        public async Task<IActionResult> RemoveLanguage([FromQuery] int languageId)
+        public async Task<IActionResult> RemoveLanguage([FromRoute] int languageId)
         {
             await _languageService.RemoveLanguage(languageId);
             return Ok();
         }
 
         [HttpDelete("iso/{isoCode}")]
-        public async Task<IActionResult> RemoveLanguageByIso([FromQuery] string isoCode)
+        public async Task<IActionResult> RemoveLanguageByIso([FromRoute] string isoCode)
         {
             await _languageService.RemoveLanguageByIso(isoCode);
             return Ok();

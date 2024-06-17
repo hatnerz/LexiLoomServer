@@ -30,35 +30,35 @@ namespace LexiLoom.Controllers
         }
 
         [HttpPost("{moduleId}/word/{wordId}")]
-        public async Task<IActionResult> AddWordToModule([FromQuery] int moduleId, [FromQuery] int wordId)
+        public async Task<IActionResult> AddWordToModule([FromRoute] int moduleId, [FromRoute] int wordId)
         {
             var result = await _moduleService.AddWordToModule(wordId, moduleId);
             return Ok(result);
         }
 
         [HttpDelete("{moduleId}/word/{wordId}")]
-        public async Task<IActionResult> RemoveWordFromModule([FromQuery] int moduleId, [FromQuery] int wordId)
+        public async Task<IActionResult> RemoveWordFromModule([FromRoute] int moduleId, [FromRoute] int wordId)
         {
             await _moduleService.RemoveWordFromModule(wordId, moduleId);
             return Ok();
         }
 
         [HttpDelete("{moduleId}")]
-        public async Task<IActionResult> RemoveModule([FromQuery] int moduleId)
+        public async Task<IActionResult> RemoveModule([FromRoute] int moduleId)
         {
             await _moduleService.RemoveModule(moduleId);
             return Ok();
         }
 
         [HttpGet("all/user/{userId}")]
-        public async Task<IActionResult> GetUserModules([FromQuery] int userId)
+        public async Task<IActionResult> GetUserModules([FromRoute] int userId)
         {
             var result = await _moduleService.GetUserModules(userId);
             return Ok(result);
         }
 
         [HttpGet("details/{moduleId}")]
-        public async Task<IActionResult> GetModuleDetails([FromQuery] int moduleId)
+        public async Task<IActionResult> GetModuleDetails([FromRoute] int moduleId)
         {
             var result = await _moduleService.GetModuleWithDetails(moduleId);
             return Ok(result);
